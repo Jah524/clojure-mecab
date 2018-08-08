@@ -4,7 +4,7 @@
     [clojure.string :refer [split]]))
 
 
-(defn morphological-analysis
+(defn parse
   [text]
   (->> (split (:out (sh "mecab" :in text)) #"\n")
        (take-while #(not= "EOS" %))
@@ -19,11 +19,11 @@
        (some (fn [x] (some #(= x %) form-list)))))
 
 (defn extract-words
-  ([sentence filter-list remove-list morph-index]
-   (->> (morphological-analysis sentence)
+  ([sentence filter-list remove-list parse-index]
+   (->> (parse sentence)
         (filter #(if (empty? filter-list) true (form? % filter-list)))
         (remove #(form? % remove-list))
-        (mapv #(nth % morph-index))))
+        (mapv #(nth % parse-index))))
   ([sentence filter-list remove-list]
    (extract-words sentence filter-list remove-list 0))
   ([sentence]

@@ -1,10 +1,10 @@
 (ns clojure-mecab-test
   (:require [clojure.test :refer :all]
-            [clojure-mecab :refer [morphological-analysis extract-words]]))
+            [clojure-mecab :refer [parse extract-words]]))
 
 (deftest main-test
-  (testing "morphological-analysis"
-    (is (= (morphological-analysis "すもももももももものうち"))
+  (testing "parse"
+    (is (= (parse "すもももももももものうち"))
         [["すもも" "名詞" "一般" "*" "*" "*" "*" "すもも" "スモモ" "スモモ"]
          ["も" "助詞" "係助詞" "*" "*" "*" "*" "も" "モ" "モ"]
          ["もも" "名詞" "一般" "*" "*" "*" "*" "もも" "モモ" "モモ"]
