@@ -10,7 +10,7 @@
       (throw (Exception. "Mecab does not found, have you installed?")))))
 
 (defn parse [text]
-  (->> (split (mecab text) #"\n")
+  (->> (split (mecab (apply str (split text #"\n"))) #"\n")
        (take-while #(not= "EOS" %))
        (mapv #(let [[word info] (split % #"\t")]
                 (vec (concat [word] (split info #",")))))))
