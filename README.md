@@ -58,7 +58,7 @@ EOS
 
 This library uses `clojure.java.shell/sh` to access mecab so that you do not need Java JNI bindings.
 If you want to deploy your application to Saas such as Heroku, you better use [kuromoji](http://www.atilika.org/) (Java implementation) instead.
-But mecab is much faster than kuromoji, so you should use mecab if you want to process massive data.
+But mecab is much faster than kuromoji, so you should use mecab when you process massive data.
 
 ## License
 
