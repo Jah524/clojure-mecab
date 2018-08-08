@@ -23,7 +23,7 @@ EOS
 ### Add dependency to your `project.clj`
 
 ```clojure
-[jah524/clojure-mecab "0.1.0"]
+[jah524/clojure-mecab "0.2.0"]
 ```
 
 ## Usage
