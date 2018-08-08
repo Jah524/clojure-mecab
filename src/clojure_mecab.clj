@@ -11,9 +11,9 @@
        (mapv #(let [[word info] (split % #"\t")]
                 (vec (concat [word] (split info #",")))))))
 
-(defn form?
-  [token-feature form-list]
-  (->> token-feature
+(defn specified-form?
+  [token-info form-list]
+  (->> token-info
        (drop 1)
        (take 2)
        (some (fn [x] (some #(= x %) form-list)))))
@@ -21,8 +21,8 @@
 (defn extract-words
   ([sentence filter-list remove-list parse-index]
    (->> (parse sentence)
-        (filter #(if (empty? filter-list) true (form? % filter-list)))
-        (remove #(form? % remove-list))
+        (filter #(if (empty? filter-list) true (specified-form? % filter-list)))
+        (remove #(specified-form? % remove-list))
         (mapv #(nth % parse-index))))
   ([sentence filter-list remove-list]
    (extract-words sentence filter-list remove-list 0))
