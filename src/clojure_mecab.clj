@@ -4,9 +4,13 @@
     [clojure.string :refer [split]]))
 
 
-(defn parse
-  [text]
-  (->> (split (:out (sh "mecab" :in text)) #"\n")
+(defn mecab [text]
+  (try (:out (sh "mecab" :in text))
+    (catch java.io.IOException e
+      (throw (Exception. "Mecab does not found, have you installed?")))))
+
+(defn parse [text]
+  (->> (split (mecab text) #"\n")
        (take-while #(not= "EOS" %))
        (mapv #(let [[word info] (split % #"\t")]
                 (vec (concat [word] (split info #",")))))))
